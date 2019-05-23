@@ -1,0 +1,50 @@
+# Use the 'vaduz' boards for flashing and testing
+# ===============================================
+#
+# Put an entry in your '.ssh/config' for 'vaduz.imp.fu-berlin.de' to configure
+# username and other configurations to allow accessing directly.
+#
+# Implementation details
+# ----------------------
+#
+# This file uses 'override' for all variables to fight against flasher/reset
+# that do not use conditionnal assignement
+#
+# To use the boards, $(VADUZ_RC) should be sourced first on the server to use
+# the local specific configuration.
+#
+# It relies on the application directory 'VADUZ_DIR' to be setup pointing to an
+# application using a working RIOT version for the server setup.
+
+ifneq (,$(VADUZ))
+  VADUZ_AUTH ?= vaduz.imp.fu-berlin.de
+  VADUZ_RC   ?= /srv/ilab-builds/workspace/workspace.rc
+  VADUZ_DIR  ?= /srv/ilab-builds/boards
+  VADUZ_MAKE ?= BOARD=$(BOARD) QUIET=0 make --no-print-directory -C $(VADUZ_DIR)
+  # Remote flashfile respects the extension (required for openocd)
+  VADUZ_FLASHFILE = $(VADUZ_DIR)/bin/$(BOARD)_flashfile$(suffix $(FLASHFILE))
+
+  # List remote boards
+  list-boards: BOARD=native
+  list-boards:
+	$(Q)ssh $(VADUZ_AUTH) 'source $(VADUZ_RC) && $(VADUZ_MAKE) list-vaduz-boards'
+
+  # Flash must do the copy and flash
+  #  * 'IMAGE_OFFSET' must be sent to to handle 'riotboot/flash-slotX'
+  #  * 'FLASHFILE' is set from the command line to force the value
+  # Set FLASHER to 'ssh' to not trigger compiling 'edbg'
+  override FLASHER = ssh
+  # Do not set FFLAGS as it currently complains about recursive definition
+  # when called for 'list-boards' as murdock defines 'FLASHFILE' from 'FFLAGS'
+  VADUZ_FFLAGS = $(VADUZ_AUTH) 'source $(VADUZ_RC) && IMAGE_OFFSET=$(IMAGE_OFFSET) FLASH_ADDR=$(FLASH_ADDR) $(VADUZ_MAKE) flash-only FLASHFILE=$(VADUZ_FLASHFILE)'
+  override define flash-recipe
+	scp $(FLASHFILE) $(VADUZ_AUTH):$(VADUZ_FLASHFILE)
+    @# Hack currently 'mcuboot' uses 'FLASH_ADDR' instead of 'IMAGE_OFFSET'
+    $(FLASHER) $(VADUZ_FFLAGS)
+  endef
+
+  override RESET       = ssh
+  override RESET_FLAGS = $(VADUZ_AUTH) 'source $(VADUZ_RC) && $(VADUZ_MAKE) reset'
+  override TERMPROG    = ssh
+  override TERMFLAGS   = -t $(VADUZ_AUTH) 'source $(VADUZ_RC) && $(VADUZ_MAKE) term'
+endif
