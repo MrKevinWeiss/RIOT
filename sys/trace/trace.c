@@ -61,6 +61,49 @@ void trace_dump(void)
     }
 }
 
+void trace_table_dump(uint32_t newline_val)
+{
+    size_t n = tracebuf_pos >
+               CONFIG_TRACE_BUFSIZE ? CONFIG_TRACE_BUFSIZE : tracebuf_pos;
+    uint32_t t_last = 0;
+
+    for (size_t i = 0; i < n; i++) {
+        if (tracebuf[i].val == newline_val) {
+            puts("");
+        }
+        printf("| %3" PRIu32 ": %-12" PRIu32 "", tracebuf[i].val,
+               tracebuf[i].time - t_last);
+        t_last = tracebuf[i].time;
+    }
+    puts("");
+}
+
+void trace_json_dump(uint32_t array_split_val)
+{
+    size_t n = tracebuf_pos >
+               CONFIG_TRACE_BUFSIZE ? CONFIG_TRACE_BUFSIZE : tracebuf_pos;
+    uint32_t t_last = 0;
+
+    for (size_t i = 0; i < n; i++) {
+        if (tracebuf[i].val == array_split_val) {
+            if (i == 0){
+                printf("[");
+            }
+            else {
+                printf("},");
+
+            }
+            printf("{");
+        }
+        printf("\"%" PRIu32 "\":%" PRIu32, tracebuf[i].val, tracebuf[i].time - t_last);
+        t_last = tracebuf[i].time;
+        if (i + 1 < n && tracebuf[i + 1].val != array_split_val) {
+            printf(",");
+        }
+    }
+    puts("}]");
+}
+
 void trace_reset(void)
 {
     unsigned state = irq_disable();

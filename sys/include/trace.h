@@ -58,7 +58,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+void trace_table_dump(uint32_t newline_val);
+void trace_json_dump(uint32_t array_split_val);
 /**
  * @brief   Add entry to trace buffer
  *
