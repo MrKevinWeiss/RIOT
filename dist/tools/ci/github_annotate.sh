@@ -7,6 +7,11 @@
 LOG=cat
 LOGFILE=
 OUTFILE=github_annotate_outfile.log
+ECHO_ESC=echo
+
+if [ $(ps -p $$ -o 'cmd=') = "bash" ]; then
+    ECHO_ESC='echo -e'
+fi
 
 github_annotate_setup() {
     if [ -n "${GITHUB_RUN_ID}" ]; then
@@ -22,7 +27,7 @@ github_annotate_is_on() {
 
 _escape() {
     # see https://stackoverflow.com/a/1252191/11921757
-    echo -e "$1" | sed -e ':a' -e 'N' -e '$!ba' \
+    ${ECHO_ESC} "$1" | sed -e ':a' -e 'N' -e '$!ba' \
         -e 's/%/%25/g' -e 's/\r/%0D/g' -e 's/\n/%0A/g'
 }
 
