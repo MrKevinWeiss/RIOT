@@ -1,0 +1,60 @@
+# Copyright 2020 Martine S. Lenders <m.lenders@fu-berlin.sh>
+#
+# This file is subject to the terms and conditions of the GNU Lesser
+# General Public License v2.1. See the file LICENSE in the top level
+# directory for more details.
+
+LOG=cat
+LOGFILE=
+OUTFILE=github_annotate_outfile.log
+
+github_annotate_setup() {
+    if [ -n "${GITHUB_RUN_ID}" ]; then
+        LOGFILE=run-${GITHUB_RUN_ID}.log
+        LOG="tee -a ${LOGFILE}"
+    fi
+}
+
+github_annotate_is_on() {
+    test -n "${LOGFILE}"
+    return $?
+}
+
+_escape() {
+    # see https://stackoverflow.com/a/1252191/11921757
+    echo -e "$1" | sed -e ':a' -e 'N' -e '$!ba' \
+        -e 's/%/%25/g' -e 's/\r/%0D/g' -e 's/\n/%0A/g'
+}
+
+github_annotate_error() {
+    if [ -n "${GITHUB_RUN_ID}" ]; then
+        FILENAME="${1}"
+        LINENUM="${2}"
+        DETAILS="$(_escape "${3}")"
+        echo "::error file=${FILENAME},line=${LINENUM}::${DETAILS}" >> ${OUTFILE}
+    fi
+}
+
+github_annotate_warning() {
+    if [ -n "${GITHUB_RUN_ID}" ]; then
+        FILENAME="${1}"
+        LINENUM="${2}"
+        DETAILS="$(_escape "${3}")"
+        echo "::warning file=${FILENAME},line=${LINENUM}::${DETAILS}" >> ${OUTFILE}
+    fi
+}
+
+github_annotate_teardown() {
+    if [ -n "${LOGFILE}" ]; then
+        rm -f ${LOGFILE}
+        LOGFILE=
+    fi
+}
+
+github_annotate_report_last_run() {
+    if [ -n "${GITHUB_RUN_ID}" -a -f "${OUTFILE}" ]; then
+        # de-duplicate errors
+        sort -u ${OUTFILE} >&2
+    fi
+    rm -f ${OUTFILE}
+}
