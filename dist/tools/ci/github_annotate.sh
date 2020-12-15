@@ -9,7 +9,9 @@ LOGFILE=
 OUTFILE=github_annotate_outfile.log
 ECHO_ESC=echo
 
-if [ $(ps -p $$ -o 'cmd=') = "bash" ]; then
+if ps -p $$ | grep -q '\<bash\>'; then
+    # workaround when included in bash to escape newlines and carriage returns
+    # properly in _escape
     ECHO_ESC='echo -e'
 fi
 
