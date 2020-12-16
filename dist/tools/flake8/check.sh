@@ -47,8 +47,10 @@ ${FLAKE8_CMD} --version &> /dev/null || {
 
 ERRORS=$(${FLAKE8_CMD} --config="${RIOTTOOLS}"/flake8/flake8.cfg ${FILES})
 
+${FLAKE8_CMD} --config="${RIOTTOOLS}"/flake8/flake8.cfg ${FILES} | ${LOG}
+
 if github_annotate_is_on; then
-    grep "^.\+:[0-9]\+:" "${ERRORS}" | while read line; do
+    grep "^.\+:[0-9]\+:" "${LOGFILE}" | while read line; do
         FILENAME=$(echo "${line}" | cut -d: -f1)
         LINENR=$(echo "${line}" | cut -d: -f2)
         DETAILS=$(echo "${line}" | cut -d: -f3- |
