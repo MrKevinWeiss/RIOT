@@ -34,7 +34,7 @@
          ZZZZZZZZZZZ               Z
             ZZZZZ
 
-The friendly Operating System for IoT!
+The friendly Operating System for IoT! 
 
 RIOT is a real-time multi-threading operating system that supports a range of
 devices that are typically found in the Internet of Things (IoT):
