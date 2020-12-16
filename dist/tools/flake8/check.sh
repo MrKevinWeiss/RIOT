@@ -57,6 +57,8 @@ if github_annotate_is_on; then
     done
 fi
 
+github_annotate_teardown
+
 if [ -n "${ERRORS}" ]
 then
     printf "%sThere are style issues in the following Python scripts:%s\n\n" "${CERROR}" "${CRESET}"
