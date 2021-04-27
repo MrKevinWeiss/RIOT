@@ -1,8 +1,9 @@
 include ../Makefile.tests_common
 
-FEATURES_REQUIRED = periph_rtc
+USEMODULE += rtt_rtc
 
 DISABLE_MODULE += periph_init_rtc
+FEATURES_BLACKLIST += periph_rtt_overflow
 
 USEMODULE += xtimer
 
