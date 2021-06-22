@@ -1032,7 +1032,7 @@ static void test_ieee802154_dst_filter_bcast_short(void)
                             pan_bcast[0], pan_bcast[1],
                             exp_addr.u8[1], exp_addr.u8[0] };
     TEST_ASSERT_EQUAL_INT(0, ieee802154_dst_filter(mhr,
-                                                   *((uint16_t *)pan_bcast),
+                                                   TEST_UINT16,
                                                    exp_addr.u16,
                                                    &long_addr));
 }
@@ -1070,7 +1070,7 @@ static void test_ieee802154_dst_filter_bcast_long(void)
                             long_addr.uint8[3], long_addr.uint8[2],
                             long_addr.uint8[1], long_addr.uint8[0] };
     TEST_ASSERT_EQUAL_INT(0, ieee802154_dst_filter(mhr,
-                                                   *((uint16_t *)pan_bcast),
+                                                   TEST_UINT16,
                                                    exp_addr.u16,
                                                    &long_addr));
 }
