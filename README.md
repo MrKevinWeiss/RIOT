@@ -38,6 +38,7 @@ The friendly Operating System for IoT!
 
 RIOT is a real-time multi-threading operating system that supports a range of
 devices that are typically found in the Internet of Things (IoT):
+
 8-bit, 16-bit and 32-bit microcontrollers.
 
 RIOT is based on the following design principles: energy-efficiency, real-time
