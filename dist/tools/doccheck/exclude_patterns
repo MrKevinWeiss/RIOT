@@ -4886,8 +4886,8 @@ boards/samd21\-xpro/include/periph_conf\.h:[0-9]+: warning: Member sam_usbdev_co
 boards/samd21\-xpro/include/periph_conf\.h:[0-9]+: warning: Member spi_config\[\] \(variable\) of file periph_conf\.h is not documented\.
 boards/samd21\-xpro/include/periph_conf\.h:[0-9]+: warning: Member timer_config\[\] \(variable\) of file periph_conf\.h is not documented\.
 boards/samd21\-xpro/include/periph_conf\.h:[0-9]+: warning: Member uart_config\[\] \(variable\) of file periph_conf\.h is not documented\.
-boards/same54\-xpro/include/board\.h:[0-9]+: warning: Member AT24CXXX_PARAM_ADDR \(macro definition\) of file board\.h is not documented\.
-boards/same54\-xpro/include/board\.h:[0-9]+: warning: Member AT24CXXX_PARAM_I2C \(macro definition\) of file board\.h is not documented\.
+boards/same54\-xpro/include/board\.h:[0-9]+: warning: Member AT24XXXX_PARAM_ADDR \(macro definition\) of file board\.h is not documented\.
+boards/same54\-xpro/include/board\.h:[0-9]+: warning: Member AT24XXXX_PARAM_I2C \(macro definition\) of file board\.h is not documented\.
 boards/same54\-xpro/include/board\.h:[0-9]+: warning: Member AT24MAC_PARAM_I2C_ADDR \(macro definition\) of file board\.h is not documented\.
 boards/same54\-xpro/include/board\.h:[0-9]+: warning: Member AT24MAC_PARAM_I2C_DEV \(macro definition\) of file board\.h is not documented\.
 boards/same54\-xpro/include/board\.h:[0-9]+: warning: Member AT24MAC_PARAM_TYPE \(macro definition\) of file board\.h is not documented\.

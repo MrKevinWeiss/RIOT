@@ -1,0 +1,14 @@
+# Copyright (c) 2020 HAW Hamburg
+#
+# This file is subject to the terms and conditions of the GNU Lesser
+# General Public License v2.1. See the file LICENSE in the top level
+# directory for more details.
+#
+
+config MODULE_AT24MAC_ID
+    bool
+    prompt "AT24MAC unique ID chip" if !(MODULE_EUI_PROVIDER && HAVE_AT24MAC)
+    default (MODULE_EUI_PROVIDER && HAVE_AT24MAC)
+    depends on HAS_PERIPH_I2C
+    depends on TEST_KCONFIG
+    select MODULE_PERIPH_I2C

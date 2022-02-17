@@ -1,0 +1,7 @@
+PSEUDOMODULES += at24%
+# handle at24xxxx being a distinct module
+NO_PSEUDOMODULES += at24xxxx
+NO_PSEUDOMODULES += at24mac_id
+
+USEMODULE_INCLUDES_at24xxxx := $(LAST_MAKEFILEDIR)/include
+USEMODULE_INCLUDES += $(USEMODULE_INCLUDES_at24xxxx)
