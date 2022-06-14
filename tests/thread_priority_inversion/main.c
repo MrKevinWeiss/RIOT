@@ -46,9 +46,9 @@ static mutex_t mtx_start_low = MUTEX_INIT_LOCKED;
 static mutex_t mtx_start_mid = MUTEX_INIT_LOCKED;
 static mutex_t mtx_start_high = MUTEX_INIT_LOCKED;
 
-static char stack_high[THREAD_STACKSIZE_TINY];
-static char stack_mid[THREAD_STACKSIZE_TINY];
-static char stack_low[THREAD_STACKSIZE_TINY];
+static char stack_high[THREAD_STACKSIZE_SMALL];
+static char stack_mid[THREAD_STACKSIZE_SMALL];
+static char stack_low[THREAD_STACKSIZE_SMALL];
 
 static char run_order[16] = "";
 static size_t run_order_pos = 0;
