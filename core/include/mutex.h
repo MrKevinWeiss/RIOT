@@ -143,7 +143,7 @@ typedef struct {
      * (e.g. because it is used to synchronize a thread with an ISR completion),
      * this will have the value of `NULL`.
      */
-    thread_t *owner;
+    kernel_pid_t owner;
     /**
      * @brief   Original priority of the owner
      * @note    Only available if module core_mutex_priority_inheritance
@@ -262,10 +262,12 @@ static inline int mutex_trylock(mutex_t *mutex)
     if (mutex->queue.next == NULL) {
         mutex->queue.next = MUTEX_LOCKED;
 #ifdef MODULE_CORE_MUTEX_PRIORITY_INHERITANCE
-        mutex->owner = thread_get_active();
+        mutex->owner = KERNEL_PID_UNDEF;
+        thread_t *t = thread_get_active();
         /* in case mutex_trylock() is not called from thread context */
-        if (mutex->owner) {
-            mutex->owner_original_priority = mutex->owner->priority;
+        if (t) {
+            mutex->owner = t->pid;
+            mutex->owner_original_priority = t->priority;
         }
 #endif
         retval = 1;
