@@ -7,7 +7,7 @@
 [![Stack Overflow questions][stackoverflow-badge]][stackoverflow-link]
 [![Twitter][twitter-badge]][twitter-link]
 [![Matrix][matrix-badge]][matrix-link]
-
+1
 <p align="center"><img src="doc/doxygen/src/riot-logo.svg" width="66%"><!--
                           ZZZZZZ
                         ZZZZZZZZZZZZ
@@ -31,7 +31,7 @@
      ZZZZ           ZZZZ       ZZZZZ        777     777    777       777
      ZZZZZ         ZZZZZ        ZZZZZ       777     777    777       777
       ZZZZZZ     ZZZZZZ          ZZZZZ      777     7777777777       777
-       ZZZZZZZZZZZZZZZ            ZZZZ      777      77777777        777
+       ZZZZZZZZZZZZZZZ            ZZZZ  d    777      77777777        777
          ZZZZZZZZZZZ               Z
             ZZZZZ                                                           --></p>
 
