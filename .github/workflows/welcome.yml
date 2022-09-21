@@ -13,6 +13,8 @@ on:
 jobs:
   welcome-message:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
     - uses: actions/first-interaction@v1
       with:
