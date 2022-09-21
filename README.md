@@ -7,7 +7,7 @@
 [![Stack Overflow questions][stackoverflow-badge]][stackoverflow-link]
 [![Twitter][twitter-badge]][twitter-link]
 [![Matrix][matrix-badge]][matrix-link]
-
+1
 <p align="center"><img src="doc/doxygen/src/riot-logo.svg" width="66%"><!--
                           ZZZZZZ
                         ZZZZZZZZZZZZ
