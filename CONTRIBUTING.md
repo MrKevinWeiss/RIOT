@@ -1,3 +1,4 @@
+
 # Contributing to RIOT
 
 Thank you for your interest in contributing to RIOT! There are many ways to
